@@ -40,7 +40,7 @@ class Memory
         data = inst_hash['data']
         variables = inst_hash['variables']
         referers = inst_hash['references']
-        instance = RubyInstance.new iid, cls, size, data, variables, referers
+        instance = create_ruby_instance(iid, cls, size, data, variables, referers)
         @all_by_id[iid] = instance
         cls.add instance
       end
@@ -65,4 +65,18 @@ class Memory
     variables.each { |name, ref| nice_vars << [name, @all_by_id[ref]] }
     nice_vars
   end
+
+  # Map the class name string to the correct model.
+  TYPE_MAPPINGS = {
+    'NilClass' => NilInstance,
+    'FalseClass' => FalseInstance,
+    'TrueClass' => TrueInstance,
+    'String' => StringInstance,
+  }
+
+  def create_ruby_instance(iid, cls, size, data, variables, referers)
+    instance_class = TYPE_MAPPINGS[cls.name] || RubyInstance
+    instance_class.new(iid, cls, size, data, variables, referers)
+  end
+
 end

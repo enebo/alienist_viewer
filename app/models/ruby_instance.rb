@@ -15,18 +15,7 @@ class RubyInstance
   end
 
   def display_value
-    case @cls.name
-    when 'NilClass'
-      'nil'
-    when 'FalseClass'
-      'false'
-    when 'TrueClass'
-      'true'
-    when 'String'
-      '"' + @data + '"'
-    else
-      display_name
-    end
+    display_name
   end
 
 end
