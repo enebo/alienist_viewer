@@ -5,4 +5,8 @@ class RubyInstance
     @id, @cls, @size = id, cls, size
     @data, @variables, @referers = data, variables, referers
   end
+
+  def to_param
+    id.to_s
+  end
 end

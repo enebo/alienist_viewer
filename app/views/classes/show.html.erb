@@ -1,8 +1,7 @@
 <h1>Class <%= @class.name %></h1>
 
-<b>Instances:</b>
+<b> Instances: </b> &nbsp;
 
 <% @class.instances.each do |instance| %>
-<a href="<%= instances_path %>/<%= instance.id %>"><%= instance.id %></a>&nbsp;
+  <%= link_to instance.id, instance_path(instance) %> &nbsp;
 <% end %>
-
