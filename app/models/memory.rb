@@ -2,8 +2,10 @@ require "json"
 
 class Memory
   def self.instance
-    @@memory ||= load # HAR.  Don't get initiaizers in dev mode
+    load unless defined? @@memory
+    @@memory
   end
+
   def self.load
     @@memory = Memory.new
     @@memory.process_dump
