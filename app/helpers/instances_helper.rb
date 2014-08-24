@@ -1,20 +1,18 @@
 module InstancesHelper
   def data_value(instance, nest=0)
-    str = case instance.cls.name
-          when "Array"
-            if nest > 0
-              instance.data.map { |e|
-                instance_link(e, data_value(Memory.instance.find_by_id(e.to_i), nest + 1)) }
+    str = if instance.cls.name == "Array"
+            elements = if nest > 0
+              instance.data.map do |e|
+                instance_link(e, data_value(Memory.instance.find_by_id(e.to_i), nest + 1))
+              end
             else
               instance.data.map { |e| instance_link(e) }
             end
-            "[" + data.join(", ") + "]"
-          when "String"
-            '"' + instance.data + '"'
+            "[" + elements.join(", ") + "] (#{elements.size})"
           else
-            instance.data
+            instance.display_value
           end
-    
+
     str.html_safe
   end
 

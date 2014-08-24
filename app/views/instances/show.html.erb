@@ -1,7 +1,7 @@
 <h1> Instance: &nbsp; <%= @instance.display_name %> </h1>
 
 <% if @instance.data %>
-  <div> <b> Data: </b> <%= data_value(@instance) %></div>
+  <div> <%= data_value(@instance) %></div>
 <% end %>
 
 <% if @instance.variables %>
@@ -19,9 +19,9 @@
 <% if @instance.referers %>
   <div>
     <b> Referers: </b>
-    <%= @instance.referers.inspect %>
     <% @instance.referers.each do |id| %>
-      <%= instance_link(id) %>
-    <% end %>
+      <% instance = Memory.instance.find_by_id(id.to_i) %>
+      <%= link_to instance.display_value, instance_path(instance) %>
+  <% end %>
   </div>
 <% end %>
