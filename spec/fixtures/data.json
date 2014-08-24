@@ -1,0 +1,53 @@
+[{"name" : "Foo",
+  "size" : 45,
+  "id": 1,
+  "instances" : [
+      {
+          "id": 2,
+          "data": "",
+          "variables" : [
+              ["@bar", 5],["@name", 7]
+          ],
+          "references" : []
+      },
+      {
+          "id": 3,
+          "data": "",
+          "variables" : [
+              ["@bar", 5],["@name", 8]
+          ],
+          "references" : []
+      }
+  ]
+ },
+ {"name" : "Fixnum",
+  "size" : 32,
+  "id": 4,
+  "instances" : [
+      {
+          "id": 5,
+          "data": "10",
+          "variables" : [],
+          "references" : [2, 3]
+      }
+  ]
+ }, 
+ { "name" : "String",
+  "size" : 24,
+  "id": 6,
+  "instances" : [
+      {
+          "id": 7,
+          "data": "foo",
+          "variables" : [],
+          "references" : [2]
+      },
+      {
+          "id": 8,
+          "data": "bar",
+          "variables" : [],
+          "references" : [3]
+      }
+  ]
+ }
+]
