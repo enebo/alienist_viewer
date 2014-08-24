@@ -34,15 +34,17 @@ class Memory
       @classes_by_name[name] = cls
       @all_by_id[id] = cls
 
-      cls_hash["instances"].each do |inst_hash|
-        iid = inst_hash['id']
-        size = inst_hash['size']
-        data = inst_hash['data']
-        variables = inst_hash['variables']
-        referers = inst_hash['references']
-        instance = create_ruby_instance(iid, cls, size, data, variables, referers)
-        @all_by_id[iid] = instance
-        cls.add instance
+      if cls_hash["instances"]
+        cls_hash["instances"].each do |inst_hash|
+          iid = inst_hash['id']
+          size = inst_hash['size']
+          data = inst_hash['data']
+          variables = inst_hash['variables']
+          referers = inst_hash['references']
+          instance = create_ruby_instance(iid, cls, size, data, variables, referers)
+          @all_by_id[iid] = instance
+          cls.add instance
+        end
       end
     end
     puts "Ruby Classes: #{@classes_by_name.values.length}, Ruby Instances: #{@all_by_id.values.length}"
