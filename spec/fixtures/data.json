@@ -1,4 +1,4 @@
-[{"name" : "Foo",
+[{"name" : "NameClass",
   "size" : 45,
   "id": 1,
   "instances" : [
@@ -6,7 +6,7 @@
           "id": 2,
           "data": "",
           "variables" : [
-              ["@bar", 5],["@name", 7]
+              ["@time", 5],["@name", 7]
           ],
           "references" : []
       },
@@ -14,7 +14,7 @@
           "id": 3,
           "data": "",
           "variables" : [
-              ["@bar", 5],["@name", 8]
+              ["@time", 5],["@name", 8]
           ],
           "references" : []
       }
@@ -38,13 +38,13 @@
   "instances" : [
       {
           "id": 7,
-          "data": "foo",
+          "data": "Tom",
           "variables" : [],
           "references" : [2]
       },
       {
           "id": 8,
-          "data": "bar",
+          "data": "Valerie",
           "variables" : [],
           "references" : [3]
       }
