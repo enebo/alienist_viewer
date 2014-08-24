@@ -11,7 +11,7 @@ class RubyInstance
   end
 
   def display_name
-    "#<#{@cls.name}: 0x#{@id.to_s(16)}>"
+    "#[#{@cls.name}: 0x#{@id.to_s(16)}]"
   end
 
   def display_value

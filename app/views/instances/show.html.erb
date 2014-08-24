@@ -10,7 +10,11 @@
     <% @instance.variables.each do |name, ref| %>
       <% instance = Memory.instance.find_by_id(ref.to_i) %>
       <%= name %> =
-      <%= link_to instance.display_value, instance_path(instance) %>
+      <% if instance %>
+         <%= link_to instance.display_value, instance_path(instance) %>
+      <% else %>
+          <%= ref.inspect %> (missing ref!)
+      <% end %>
       <br />
     <% end %>
   </div>
