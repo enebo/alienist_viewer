@@ -8,7 +8,7 @@
 
   <% @classes.sort { |a, b| a.name <=> b.name }.each do |cls| %>
   <tr>
-    <td><%= cls.instances.length %></td>
+    <td class='text-right'> <%= cls.instances.length %> </td>
     <td><a href="<%= classes_path %>/<%= cls.id %>"><%= cls.name%></a></td>
   </tr>
   <% end %>
