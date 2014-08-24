@@ -1,0 +1,8 @@
+<h1>Class <%= @class.name %></h1>
+
+<b>Instances:</b>
+
+<% @class.instances.each do |instance| %>
+<a href="<%= instances_path %>/<%= instance.id %>"><%= instance.id %></a>&nbsp;
+<% end %>
+
