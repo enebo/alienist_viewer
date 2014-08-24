@@ -1,6 +1,7 @@
 require "json"
 
 class Memory
+
   def self.instance
     load unless defined? @@memory
     @@memory
