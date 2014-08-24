@@ -3,5 +3,5 @@
 <b> Instances: </b> &nbsp;
 
 <% @class.instances.each do |instance| %>
-  <%= link_to instance.id, instance_path(instance) %> &nbsp;
+  <%= link_to instance.display_name, instance_path(instance) %> &nbsp;
 <% end %>

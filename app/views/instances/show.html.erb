@@ -1,22 +1,27 @@
-<h1>Instance 0x<%= @instance.id.to_s(16) %> of <%= @instance.cls.name %></h1>
+<h1> Instance: &nbsp; <%= @instance.display_name %> </h1>
 
 <% if @instance.data %>
-<div>Data: <%= data_value(@instance) %></div>
+  <div> <b> Data: </b> <%= data_value(@instance) %></div>
 <% end %>
 
 <% if @instance.variables.length > 0 %>
-<div>Instance Variables: 
-  <%   @instance.variables.each do |name, ref| %>
-  <%= instance_link(ref, name) %>
-  <%   end %>
-</div>
+  <div>
+    <b> Instance Variables: </b> <br />
+    <% @instance.variables.each do |name, ref| %>
+      <% instance = Memory.instance.find_by_id(ref.to_i) %>
+      <%= name %> =
+      <%= link_to instance.display_value, instance_path(instance) %>
+      <br />
+    <% end %>
+  </div>
 <% end %>
 
 <% if @instance.referers %>
-<div>Referers:
-  <%= @instance.referers.inspect %>
-  <%   @instance.referers.each do |id| %>
-  <%= instance_link(id) %>
-  <%   end %>
-</div>
+  <div>
+    <b> Referers: </b>
+    <%= @instance.referers.inspect %>
+    <% @instance.referers.each do |id| %>
+      <%= instance_link(id) %>
+    <% end %>
+  </div>
 <% end %>
