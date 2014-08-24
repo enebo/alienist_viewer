@@ -25,6 +25,9 @@ dist
 nbproject/private
 pkg
 .ruby-version
+.ruby-gemset
 #*
 .#*
+
+data.json
 
