@@ -28,6 +28,7 @@ pkg
 .ruby-gemset
 #*
 .#*
+.idea
 
 data.json
 
