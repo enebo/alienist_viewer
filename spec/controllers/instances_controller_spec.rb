@@ -4,7 +4,7 @@ describe InstancesController do
   let(:data_file) { File.expand_path(File.join('spec', 'fixtures', 'data.json')) }
 
   before do
-    allow(JSON).to receive(:load) { File.read(data_file) }
+    Memory.load data_file
   end
 
   describe 'GET show' do

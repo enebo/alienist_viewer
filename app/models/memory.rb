@@ -7,14 +7,15 @@ class Memory
     @@memory
   end
 
-  def self.load
-    @@memory = Memory.new
+  def self.load(filename='data.json')
+    @@memory = Memory.new filename
     @@memory.process_dump
   end
   
-  def initialize
+  def initialize(filename)
     @classes_by_name = {}
     @all_by_id = {}
+    @filename = filename
   end
 
   def classes
@@ -26,7 +27,7 @@ class Memory
   end
 
   def process_dump
-    data = JSON.load File.read("data.json")
+    data = JSON.load File.read(@filename)
 
     data.each do |cls_hash|
       name = cls_hash["name"]
@@ -48,7 +49,7 @@ class Memory
         end
       end
     end
-    puts "Ruby Classes: #{@classes_by_name.values.length}, Ruby Instances: #{@all_by_id.values.length}"
+    # puts "Ruby Classes: #{@classes_by_name.values.length}, Ruby Instances: #{@all_by_id.values.length}"
   end
 
   # def inspect
