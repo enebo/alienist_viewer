@@ -6,10 +6,10 @@
     <th class='text-left'> Name </th>
   </tr>
 
-  <% @classes.sort { |a, b| a.name <=> b.name }.each do |cls| %>
+  <% @classes.sort_by{|cls| cls.instances.length}.reverse_each do |cls| %>
   <tr>
     <td class='text-right'> <%= cls.instances.length %> </td>
-    <td><a href="<%= classes_path %>/<%= cls.id %>"><%= cls.name%></a></td>
+    <td><a href="<%= class_path(cls) %>"><%= cls.name%></a></td>
   </tr>
   <% end %>
   

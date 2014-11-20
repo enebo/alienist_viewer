@@ -1,7 +1,7 @@
 <h1> Instance: &nbsp; <%= @instance.display_name %> </h1>
 
 <% if @instance.data %>
-  <div> <%= data_value(@instance) %></div>
+  <div> <%== data_value(@instance) %></div>
 <% end %>
 
 <% if @instance.variables %>
@@ -11,7 +11,7 @@
       <% instance = Memory.instance.find_by_id(ref.to_i) %>
       <%= name %> =
       <% if instance %>
-         <%= link_to instance.display_value, instance_path(instance) %>
+         <a href="<%= instance_path(instance) %>"><%= instance.display_name %></a>
       <% else %>
           <%= ref.inspect %> (missing ref!)
       <% end %>
@@ -25,7 +25,7 @@
     <b> Referers: </b>
     <% @instance.referers.each do |id| %>
       <% instance = Memory.instance.find_by_id(id.to_i) %>
-      <%= link_to instance.display_value, instance_path(instance) %>
+      <a href="<%= instance_path(instance) %>"><%= instance.display_name %></a>
   <% end %>
   </div>
 <% end %>
