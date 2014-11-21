@@ -2,6 +2,7 @@ require 'roda'
 %w'ruby_instance false_instance nil_instance ruby_class string_instance true_instance memory'.each{|f| require "./models/#{f}"}
 
 class AlienistViewer < Roda
+  use Rack::Static, :urls=>['/app.css'], :root=>'public'
   plugin :render, :escape=>true, :cache=>(ENV['RACK_ENV'] != 'development')
   plugin :symbol_views
   plugin :path
@@ -13,8 +14,13 @@ class AlienistViewer < Roda
     view(:content=>'<h1>File Not Found</h1>')
   end
   plugin :error_handler do |e|
-    puts e
-    view(:content=>'<h1>Internal Server Error</h1>')
+    if e.is_a?(Memory::NoObject)
+      response.status = 404
+      view(:content=>'<h1>File Not Found</h1>')
+    else
+      puts "#{e.class}: #{e.message}", e.backtrace
+      view(:content=>'<h1>Internal Server Error</h1>')
+    end
   end
 
 
@@ -26,12 +32,12 @@ class AlienistViewer < Roda
       end
 
       r.is 'class/:d' do |class_id|
-        @class = Memory.instance.find_by_id class_id.to_i
+        @class = Memory.instance.find_by_id!(class_id.to_i)
         :class
       end
 
       r.is 'instance/:d' do |instance_id|
-        @instance = Memory.instance.find_by_id instance_id.to_i
+        @instance = Memory.instance.find_by_id!(instance_id.to_i)
         :instance
       end
     end
@@ -44,15 +50,15 @@ class AlienistViewer < Roda
       elements = if nest < 1
         instance.data.map do |e|
           instance = Memory.instance.find_by_id(e.to_i)
-          link_to data_value(instance, nest + 1), instance_path(instance)
+          "<a href=\"#{instance_path(instance)}\">#{data_value(instance, nest + 1)}</a>"
         end
       else
         instance.data.map do |e|
           instance = Memory.instance.find_by_id(e.to_i)
-          link_to instance.display_value, instance_path(instance)
+          "<a href=\"#{instance_path(instance)}\">#{instance.display_value}</a>"
         end
       end
-      "[" + elements.join(", ") + "] (#{elements.size})"
+      "[#{elements.join(", ")}] (#{elements.size})"
     else
       instance.display_name
     end

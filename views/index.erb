@@ -1,6 +1,5 @@
-<h1>All Classes</h1>
-
-<table>
+<table class="table table-bordered table-striped">
+  <caption>All Classes</caption>
   <tr>
     <th class='text-right'> Count </th>
     <th class='text-left'> Name </th>
@@ -9,8 +8,7 @@
   <% @classes.sort_by{|cls| cls.instances.length}.reverse_each do |cls| %>
   <tr>
     <td class='text-right'> <%= cls.instances.length %> </td>
-    <td><a href="<%= class_path(cls) %>"><%= cls.name%></a></td>
+    <td><a href="<%= class_path(cls) %>"><%= cls.name %></a></td>
   </tr>
   <% end %>
-  
 </table>

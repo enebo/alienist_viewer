@@ -1,31 +1,42 @@
-<h1> Instance: &nbsp; <%= @instance.display_name %> </h1>
+<h1> Class: <a href="/class/<%= @instance.cls.id %>"><%= @instance.cls.name %></a><br/>Instance: &nbsp; <%= @instance.display_name %> </h1>
 
-<% if @instance.data %>
+<% if @instance.cls.name == "Array" %>
   <div> <%== data_value(@instance) %></div>
 <% end %>
 
-<% if @instance.variables %>
-  <div>
-    <b> Instance Variables: </b> <br />
+<% unless @instance.variables.empty? %>
+  <table class="table table-bordered table-striped">
+  <caption>Instance Variables</caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
     <% @instance.variables.each do |name, ref| %>
       <% instance = Memory.instance.find_by_id(ref.to_i) %>
-      <%= name %> =
-      <% if instance %>
-         <a href="<%= instance_path(instance) %>"><%= instance.display_name %></a>
-      <% else %>
-          <%= ref.inspect %> (missing ref!)
-      <% end %>
-      <br />
+      <tr>
+        <td><%= name %></td>
+        <td>
+          <% if instance %>
+            <a href="<%= instance_path(instance) %>"><%= instance.display_name %></a>
+          <% else %>
+            <%= ref.inspect %> (missing ref!)
+          <% end %>
+        </td>
+      </tr>
     <% end %>
   </div>
 <% end %>
 
-<% if @instance.referers %>
-  <div>
-    <b> Referers: </b>
+<% unless @instance.referers.empty? %>
+    <h2>Referers:</h2>
+    <ul>
     <% @instance.referers.each do |id| %>
-      <% instance = Memory.instance.find_by_id(id.to_i) %>
-      <a href="<%= instance_path(instance) %>"><%= instance.display_name %></a>
-  <% end %>
-  </div>
+      <% if instance = Memory.instance.find_by_id(id.to_i) %>
+        <li><a href="<%= instance_path(instance) %>"><%= instance.display_name %></a></li>
+      <% end %>
+    <% end %>
+    </ul>
 <% end %>

@@ -1,13 +1,14 @@
 require "json"
 
 class Memory
+  class NoObject < StandardError; end
 
   def self.instance
     load unless defined? @@memory
     @@memory
   end
 
-  def self.load(filename='data.json')
+  def self.load(filename=ENV['ALIENIST_FILE']||'data.json')
     @@memory = Memory.new filename
     @@memory.process_dump
   end
@@ -24,6 +25,10 @@ class Memory
 
   def find_by_id(id)
     @all_by_id[id]
+  end
+
+  def find_by_id!(id)
+    @all_by_id.fetch(id){raise NoObject, "no object with id #{id}"}
   end
 
   def process_dump
