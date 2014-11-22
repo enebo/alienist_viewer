@@ -1,7 +1,0 @@
-<h1>Class <%= @class.name %></h1>
-
-<b> Instances: </b> &nbsp;
-
-<% @class.instances.each do |instance| %>
-  <%= link_to instance.display_name, instance_path(instance) %> &nbsp;
-<% end %>
