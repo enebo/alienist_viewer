@@ -11,11 +11,16 @@ class RubyInstance
   end
 
   def display_name
-    "#[#{@cls.name}: 0x#{@id.to_s(16)}]"
+    display_use_data? ? @data.to_s : "#[#{@cls.name}: 0x#{@id.to_s(16)}]"
   end
 
   def display_value
     display_name
   end
 
+  private
+
+  def display_use_data?
+    !@data.to_s.empty?
+  end
 end

@@ -78,6 +78,7 @@ class Memory
   # Map the class name string to the correct model.
   TYPE_MAPPINGS = {
     'NilClass' => NilInstance,
+    'Array' => ArrayInstance,
     'FalseClass' => FalseInstance,
     'TrueClass' => TrueInstance,
     'String' => StringInstance,

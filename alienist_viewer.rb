@@ -1,5 +1,5 @@
 require 'roda'
-%w'ruby_instance false_instance nil_instance ruby_class string_instance true_instance memory'.each{|f| require "./models/#{f}"}
+%w'ruby_instance false_instance nil_instance array_instance ruby_class string_instance true_instance memory'.each{|f| require "./models/#{f}"}
 
 class AlienistViewer < Roda
   use Rack::Static, :urls=>['/app.css'], :root=>'public'
