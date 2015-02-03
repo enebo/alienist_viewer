@@ -4,13 +4,13 @@ class Memory
   class NoObject < StandardError; end
 
   def self.instance
-    load unless defined? @@memory
-    @@memory
+    load unless defined?(@memory)
+    @memory
   end
 
   def self.load(filename=ENV['ALIENIST_FILE']||'data.json')
-    @@memory = Memory.new filename
-    @@memory.process_dump
+    @memory = Memory.new filename
+    @memory.process_dump
   end
   
   def initialize(filename)
@@ -32,7 +32,7 @@ class Memory
   end
 
   def process_dump
-    data = JSON.load File.read(@filename)
+    data = JSON.load(File.read(@filename))
 
     data.each do |cls_hash|
       name = cls_hash["name"]
