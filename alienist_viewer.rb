@@ -6,6 +6,7 @@ class AlienistViewer < Roda
   plugin :render, :escape=>true, :cache=>(ENV['RACK_ENV'] != 'development')
   plugin :symbol_views
   plugin :path
+  plugin :h
 
   path(:class){|c| "/class/#{c.id}"}
   path(:instance){|i| "/instance/#{i.id}"}
@@ -45,22 +46,20 @@ class AlienistViewer < Roda
 
   private
 
-  def data_value(instance, nest=0)
-    if instance.cls.name == "Array"
-      elements = if nest < 1
-        instance.data.map do |e|
-          instance = Memory.instance.find_by_id(e.to_i)
-          "<a href=\"#{instance_path(instance)}\">#{data_value(instance, nest + 1)}</a>"
-        end
-      else
-        instance.data.map do |e|
-          instance = Memory.instance.find_by_id(e.to_i)
-          "<a href=\"#{instance_path(instance)}\">#{instance.display_value}</a>"
+  def instance_link(instance, nest=0)
+    if instance.is_a?(ArrayInstance)
+      nested = nest < 1
+      elements = instance.data.map do |e|
+        ins = Memory.instance.find_by_id(e.to_i)
+        if ins.is_a?(RubyClass)
+          "<a href=\"#{class_path(ins)}\">#{h ins.name}</a>"
+        elsif ins
+          "<a href=\"#{instance_path(ins)}\">#{nested ? instance_link(ins, nest + 1) : h(ins.display_name)}</a>"
         end
       end
       "[#{elements.join(", ")}] (#{elements.size})"
     else
-      instance.display_name
+      "<a href=\"#{instance_path(instance)}\">#{h instance.display_name}</a>"
     end
   end
 end

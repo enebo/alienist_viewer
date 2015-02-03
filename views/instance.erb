@@ -1,8 +1,4 @@
-<h1> Class: <a href="/class/<%= @instance.cls.id %>"><%= @instance.cls.name %></a><br/>Instance: &nbsp; <%= @instance.display_name %> </h1>
-
-<% if @instance.cls.name == "Array" %>
-  <div> <%== data_value(@instance) %></div>
-<% end %>
+<h1> Class: <a href="<%= class_path(@instance.cls) %>"><%= @instance.cls.name %></a><br/>Instance: &nbsp; <%== instance_link(@instance) %></h1>
 
 <% unless @instance.variables.empty? %>
   <table class="table table-bordered table-striped">
@@ -20,7 +16,7 @@
         <td><%= name %></td>
         <td>
           <% if instance %>
-            <a href="<%= instance_path(instance) %>"><%= instance.display_name %></a>
+            <%== instance_link(instance) %>
           <% else %>
             <%= ref.inspect %> (missing ref!)
           <% end %>
@@ -35,7 +31,7 @@
     <ul>
     <% @instance.referers.each do |id| %>
       <% if instance = Memory.instance.find_by_id(id.to_i) %>
-        <li><a href="<%= instance_path(instance) %>"><%= instance.display_name %></a></li>
+        <li><%== instance_link(instance) %></li>
       <% end %>
     <% end %>
     </ul>
