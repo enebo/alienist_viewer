@@ -1,7 +1,7 @@
 class StringInstance < RubyInstance
 
   def display_name
-    '"' + @data + '"'
+    "\"#{@data}\""
   end
 
 end

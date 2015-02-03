@@ -41,7 +41,7 @@ describe "AlienistViewer" do
     click_link '#[NameClass: 0x3]'
     click_link 'NameClass'
     click_link '#[NameClass: 0x2]'
-    click_link '#[Fixnum: 0x5]'
+    click_link '10'
     click_link '#[NameClass: 0x3]'
   end
 end
