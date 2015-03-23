@@ -33,7 +33,7 @@ end
 describe "AlienistViewer" do
   it "should allow navigating the memory dump" do 
     visit('/')
-    find('title').text.should == "AlienistViewer"
+    page.should have_title('AlienistViewer')
     click_link 'String'
     click_link '"Tom"'
     click_link 'String'
